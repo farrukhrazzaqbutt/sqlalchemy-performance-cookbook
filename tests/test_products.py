@@ -59,7 +59,9 @@ class TestProducts:
 
     async def test_get_products_with_filters(self, client, test_product):
         """Test getting products with filters"""
-        response = await client.get("/products/?category_id=1&min_price=50&max_price=200")
+        response = await client.get(
+            "/products/?category_id=1&min_price=50&max_price=200"
+        )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert "items" in data

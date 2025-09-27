@@ -36,7 +36,9 @@ class TestOrders:
         assert data["total_amount"] == 199.98
         assert len(data["order_items"]) == 1
 
-    async def test_create_order_insufficient_stock(self, client, test_user, test_product):
+    async def test_create_order_insufficient_stock(
+        self, client, test_user, test_product
+    ):
         """Test creating order with insufficient stock"""
         # Login first
         login_response = await client.post(
@@ -99,7 +101,9 @@ class TestOrders:
         token = login_response.json()["access_token"]
 
         # Get orders
-        response = await client.get("/orders/", headers={"Authorization": f"Bearer {token}"})
+        response = await client.get(
+            "/orders/", headers={"Authorization": f"Bearer {token}"}
+        )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert "items" in data

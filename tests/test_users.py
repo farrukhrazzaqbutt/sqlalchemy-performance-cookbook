@@ -16,7 +16,9 @@ class TestUsers:
         token = login_response.json()["access_token"]
 
         # Get current user
-        response = await client.get("/users/me", headers={"Authorization": f"Bearer {token}"})
+        response = await client.get(
+            "/users/me", headers={"Authorization": f"Bearer {token}"}
+        )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert data["username"] == "testuser"
@@ -36,7 +38,9 @@ class TestUsers:
         token = login_response.json()["access_token"]
 
         # Get users list
-        response = await client.get("/users/", headers={"Authorization": f"Bearer {token}"})
+        response = await client.get(
+            "/users/", headers={"Authorization": f"Bearer {token}"}
+        )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
         assert "items" in data
@@ -52,7 +56,9 @@ class TestUsers:
         token = login_response.json()["access_token"]
 
         # Try to get users list
-        response = await client.get("/users/", headers={"Authorization": f"Bearer {token}"})
+        response = await client.get(
+            "/users/", headers={"Authorization": f"Bearer {token}"}
+        )
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     async def test_get_user_by_id(self, client, test_user):

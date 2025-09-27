@@ -24,9 +24,7 @@ from app.db import Base
 from app.models import Category, Order, OrderItem, Product, User
 
 # Database URL - use SQLite if PostgreSQL is not available
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", "sqlite+aiosqlite:///./pagination_test.db"
-)
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./pagination_test.db")
 
 # Create engine
 engine = create_async_engine(DATABASE_URL, echo=False)

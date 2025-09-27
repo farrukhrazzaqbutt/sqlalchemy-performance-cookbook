@@ -14,12 +14,12 @@ def cleanup_db_files():
     """Clean up database files created by performance scripts"""
     db_files = [
         "n_plus_one_test.db",
-        "pagination_test.db", 
+        "pagination_test.db",
         "indexing_test.db",
         "bulk_operations_test.db",
-        "performance_test.db"
+        "performance_test.db",
     ]
-    
+
     for db_file in db_files:
         db_path = Path(db_file)
         if db_path.exists():
@@ -40,13 +40,13 @@ async def run_script(script_path: str, script_name: str):
         project_root = Path(__file__).parent.parent
         env = os.environ.copy()
         env["PYTHONPATH"] = str(project_root)
-        
+
         result = subprocess.run(
-            [sys.executable, script_path], 
-            capture_output=True, 
-            text=True, 
+            [sys.executable, script_path],
+            capture_output=True,
+            text=True,
             timeout=300,
-            env=env
+            env=env,
         )
 
         if result.returncode == 0:
