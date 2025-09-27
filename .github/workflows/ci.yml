@@ -55,7 +55,7 @@ jobs:
     
     - name: Check code formatting
       run: |
-        isort --check-only app tests scripts
+        isort --check-only --settings-path pyproject.toml app tests scripts
         black --check app tests scripts
     
     - name: Run tests
