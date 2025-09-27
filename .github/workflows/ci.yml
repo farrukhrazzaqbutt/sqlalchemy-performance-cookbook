@@ -120,6 +120,7 @@ jobs:
       env:
         DATABASE_URL: postgresql+asyncpg://app:app@localhost:5432/app
         REDIS_URL: redis://localhost:6379/0
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         python scripts/run_all_benchmarks.py
 

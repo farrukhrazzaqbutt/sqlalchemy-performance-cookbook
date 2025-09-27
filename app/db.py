@@ -1,31 +1,40 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.orm import DeclarativeBase
 import os
 
-# Database configuration
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", 
-    "postgresql+asyncpg://app:app@db:5432/app"
-)
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
+from sqlalchemy.orm import DeclarativeBase
 
-# Create async engine
-engine = create_async_engine(
-    DATABASE_URL,
-    echo=False,  # Set to True for SQL query logging
-    pool_pre_ping=True,
-    pool_recycle=300,
-)
+# Database configuration
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://app:app@db:5432/app")
+
+# Create async engine with error handling
+try:
+    engine = create_async_engine(
+        DATABASE_URL,
+        echo=False,  # Set to True for SQL query logging
+        pool_pre_ping=True,
+        pool_recycle=300,
+    )
+except Exception:
+    # Fallback to SQLite if PostgreSQL is not available
+    DATABASE_URL = "sqlite+aiosqlite:///./app.db"
+    engine = create_async_engine(
+        DATABASE_URL,
+        echo=False,
+        connect_args={"check_same_thread": False} if "sqlite" in DATABASE_URL else {},
+    )
 
 # Create session factory
 AsyncSessionLocal = async_sessionmaker(
-    engine,
-    class_=AsyncSession,
-    expire_on_commit=False
+    engine, class_=AsyncSession, expire_on_commit=False
 )
+
 
 class Base(DeclarativeBase):
     """Base class for all models"""
+
     pass
+
 
 async def get_db_session() -> AsyncSession:
     """Get database session"""

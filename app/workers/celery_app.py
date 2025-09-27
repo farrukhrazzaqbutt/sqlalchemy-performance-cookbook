@@ -1,5 +1,6 @@
-from celery import Celery
 import os
+
+from celery import Celery
 
 # Redis configuration
 REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379/0")
@@ -9,7 +10,7 @@ celery_app = Celery(
     "performance_cookbook",
     broker=REDIS_URL,
     backend=REDIS_URL,
-    include=["app.workers.tasks"]
+    include=["app.workers.tasks"],
 )
 
 # Configuration
