@@ -18,8 +18,7 @@ sys.path.insert(0, str(project_root))
 
 from sqlalchemy import and_, desc, select, text
 from sqlalchemy.event import listen
-from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
-                                    create_async_engine)
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.db import Base
 from app.models import Category, Order, OrderItem, Product, User

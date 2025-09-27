@@ -18,8 +18,7 @@ sys.path.insert(0, str(project_root))
 
 from sqlalchemy import select, text
 from sqlalchemy.event import listen
-from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
-                                    create_async_engine)
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import joinedload, selectinload
 
 from app.db import Base
